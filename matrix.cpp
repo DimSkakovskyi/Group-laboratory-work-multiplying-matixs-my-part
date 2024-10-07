@@ -1,20 +1,28 @@
-class complexNum {
+class Complex {
 private:
-   float real
+   float real;
    float imag;
 
 public:
     Complex operator+(Complex& other) {
-        return Complex(real + other.real, imag + other.imag);
+        Complex* sum = new Complex;
+        sum->real = real + other.real;
+        sum->imag = imag + other.imag;
+        return *sum;
     }
 
     Complex operator-(Complex& other) {
-        return Complex(real - other.real, imag - other.imag);
+        Complex* sub = new Complex;
+        sub->real = real + other.real;
+        sub->imag = imag + other.imag;
+        return *sub;
     }
 
     Complex operator*(Complex& other) {
-        return Complex(real * other.real - imag * other.imag,
-                       real * other.imag + imag * other.real);
+        Complex* mult = new Complex;
+        mult->real = real * other.real - imag * other.imag;
+        mult->imag = real * other.imag + imag * other.real;
+        return *mult;
     }
 
     // Getter for the real part
@@ -26,16 +34,48 @@ public:
     double getImag() {
         return imag;
     }
-
-    void display() {
-        if (imag < 0)
-            cout << real << " - " << -imag << "i" << endl;
-        else
-            cout << real << " + " << imag << "i" << endl;
-    }
 };
 
 class matrix {
 private:
-    
+    Complex* array[256][256];
+
+public:
+    matrix operator+(matrix& other) {
+        matrix* sum = new matrix;
+        for(int i = 0; i < 256; i++) {
+            for(int j = 0; j < 256; j++){
+                *sum->array[i][j] = *array[i][j] + *other.array[i][j];
+            }
+        }
+
+        return *sum;
+    }
+
+    matrix operator-(matrix& other) {
+        matrix* minus = new matrix;
+        for(int i = 0; i < 256; i++) {
+            for(int j = 0; j < 256; j++){
+                *minus->array[i][j] = *array[i][j] - *other.array[i][j];
+            }
+        }
+
+        return *minus;
+    }
+
+    matrix operator*(matrix& other) {
+        matrix* mult = new matrix;
+
+        for (int i = 0; i < 256; i++) {
+        for (int j = 0; j < 256; j++) {
+            for (int k = 0; k < 256; ++k) {
+                *mult->array[i][j] = *mult->array[i][j] + (*array[i][k] * *other.array[k][j]);
+            }
+        }
+        }
+
+        return *mult;
+    }
+
+
 };
