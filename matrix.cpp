@@ -98,19 +98,19 @@ public:
         return minus;
     }
 
-    // matrix operator*(matrix& other) {
-    //     matrix* mult = new matrix;
+    Matrix operator*(Matrix& other) {
+        Matrix mult = (rows, cols);
 
-    //     for (int i = 0; i < 256; i++) {
-    //     for (int j = 0; j < 256; j++) {
-    //         for (int k = 0; k < 256; ++k) {
-    //             *mult->array[i][j] = *mult->array[i][j] + (*array[i][k] * *other.array[k][j]);
-    //         }
-    //     }
-    //     }
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                for (int k = 0; k < 256; k++) {
+                    mult.setElement(row, col, mult.getElement(row, col) + (getElement(row, k) * other.getElement(k, col)));
+                }
+            }
+        }
 
-    //     return *mult;
-    // }
+        return mult;
+    }
 
 
 };
