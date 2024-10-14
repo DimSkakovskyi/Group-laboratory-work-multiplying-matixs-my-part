@@ -51,8 +51,10 @@ public:
     }
 
     ~Matrix(){
-        // TODO: implement right destructor
-        delete matrix;
+        for (int i = 0; i < rows; ++i) {
+            delete matrix[i];  
+        }
+         delete matrix;
     }
 
     Complex getElement(int row, int col) const{
@@ -75,8 +77,6 @@ public:
 
 
     Matrix operator+(Matrix& other) const{
-        // Check id other matrix have same size
-    
         Matrix sum(rows, cols);
 
         for(int row = 0; row < rows; row++) {
